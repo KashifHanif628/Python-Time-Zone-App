@@ -1,8 +1,8 @@
 import streamlit as st
-from datetime import datetime # its build in module in python and we are importing it from python class. 
-from zoneinfo import ZoneInfo # its also build in python and it will provide us whole world time zone.
+from datetime import datetime  # 🕰️ Built-in Python module for handling date & time
+from zoneinfo import ZoneInfo  # 🌍 Provides time zones from around the world
 
-# List of available time zones
+# ✨ Available Time Zones List ✨
 TIME_ZONES = [
     "UTC",
     "Asia/Karachi",
@@ -16,38 +16,33 @@ TIME_ZONES = [
     "Asia/Kolkata",
 ]
 
-st.title("Time Zone App")
+st.title("⏳✨ 𝕋𝕚𝕞𝕖 ℤ𝕠𝕟𝕖 𝔸𝕡𝕡 ✨⏳")  # Stylish Symbolic Title
 
-# Create a multi-select dropdown for choosing time zones
+# 🌟 Multi-Select Dropdown for Time Zones 🌟
 selected_timezone = st.multiselect(
-    "Select Timezones", TIME_ZONES, default=["UTC", "Asia/Karachi"]
+    "🌍 **𝓢𝓮𝓵𝓮𝓬𝓽 𝓣𝓲𝓶𝓮𝔃𝓸𝓷𝓮𝓼** 🕰️", TIME_ZONES, default=["UTC", "Asia/Karachi"]
 )
 
-# Display current time for selected time zones
-st.subheader("Selected Timezones")
-for tz in selected_timezone: # tz is a shortform of time zone
-    # Get and format current time for each selected timezone with AM/PM
-    #.now will tell us the current time and .strftime will repersent the year month day minutes & seconds in am or pm both are built in python
-    current_time = datetime.now(ZoneInfo(tz)).strftime("%Y-%m-%d %I:%M:%S %p") # y=year, m=month, d=day, i=am, m=minutes, s=seconds, p=pm
-    # Display timezone and its current time
-    st.write(f"**{tz}**: {current_time}")
+# 🕰️ Display current time for selected time zones
+st.subheader("📌 **𝓢𝓮𝓵𝓮𝓬𝓽𝓮𝓭 𝓣𝓲𝓶𝓮𝔃𝓸𝓷𝓮𝓼** 🌟")
+for tz in selected_timezone:  # tz is short for timezone  
+    current_time = datetime.now(ZoneInfo(tz)).strftime("%Y-%m-%d ⏰ %I:%M:%S %p")  
+    st.write(f"🌍 **{tz}** → 🕒 {current_time}")
 
+# 🔄 Time Conversion Section 🔄
+st.subheader("🔄 **𝓣𝓲𝓶𝓮 𝓒𝓸𝓷𝓿𝓮𝓻𝓼𝓲𝓸𝓷** 🌍")
 
-# Create section for time conversion
-st.subheader("Convert Time Between Timezones")
-# Create time input field with current time as default
-current_time = st.time_input("**Current Time**", value=datetime.now().time())
-# Dropdown to select source timezone
-from_tz = st.selectbox("**From Timezone**", TIME_ZONES, index=0)
-# Dropdown to select target timezone
-to_tz = st.selectbox("**To Timezone**", TIME_ZONES, index=1)
+# ⏳ Time Input Field ⏳
+current_time = st.time_input("⏳ **𝓔𝓷𝓽𝓮𝓻 𝓣𝓲𝓶𝓮**", value=datetime.now().time())
 
-# Create convert button and handle conversion
-if st.button("**Convert Time**"):
-    # Combine today's date with input time and source timezone
+# 🌍 Select Source Timezone 🌍
+from_tz = st.selectbox("🌎 **𝓕𝓻𝓸𝓶 𝓣𝓲𝓶𝓮𝔃𝓸𝓷𝓮** 🏁", TIME_ZONES, index=0)
+
+# 🎯 Select Target Timezone 🎯
+to_tz = st.selectbox("🚀 **𝓣𝓸 𝓣𝓲𝓶𝓮𝔃𝓸𝓷𝓮** 🎯", TIME_ZONES, index=1)
+
+# 🔘 Convert Button 🔘
+if st.button("🔄 **𝓒𝓸𝓷𝓿𝓮𝓻𝓽 𝓣𝓲𝓶𝓮** ⏳"):
     dt = datetime.combine(datetime.today(), current_time, tzinfo=ZoneInfo(from_tz))
-    # Convert time to target timezone and format it with AM/PM
-    converted_time = dt.astimezone(ZoneInfo(to_tz)).strftime("%Y-%m-%d %I:%M:%S %p")
-    # Display the converted time with success message
-    st.success(f"Converted Time in {to_tz}: {converted_time}")
-
+    converted_time = dt.astimezone(ZoneInfo(to_tz)).strftime("%Y-%m-%d ⏰ %I:%M:%S %p")
+    st.success(f"✅ **Converted Time in {to_tz}** → 🕒 {converted_time}")
